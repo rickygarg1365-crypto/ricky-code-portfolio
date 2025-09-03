@@ -1,8 +1,8 @@
 'use client'
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Sparkles, Code2 as Code, Palette } from 'lucide-react'
-import { useRef, useEffect, useState } from 'react'
+import { ArrowRight, Sparkles, Code2 as Code } from 'lucide-react'
+import { useRef } from 'react'
 
 const Hero = () => {
   const ref = useRef<HTMLElement>(null)
@@ -14,16 +14,7 @@ const Hero = () => {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
   // Remove opacity fade to prevent blending with next section
 
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
 
   const scrollToPortfolio = () => {
     const element = document.querySelector('#portfolio')

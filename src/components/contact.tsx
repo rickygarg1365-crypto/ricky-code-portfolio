@@ -5,23 +5,17 @@ import { useRef, useState } from 'react'
 import { 
   Mail, 
   Phone, 
-  MapPin, 
   Clock, 
   Send, 
   CheckCircle, 
   AlertCircle,
-  MessageSquare,
-  Calendar,
-  Zap,
   Sparkles,
-  Users,
-  Award,
-  Globe,
   ArrowRight,
   Star,
   Shield,
-  Headphones,
-  TrendingUp
+  Award,
+  TrendingUp,
+  Headphones
 } from 'lucide-react'
 
 const Contact = () => {
@@ -59,7 +53,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      subtitle: 'Let\'s have a chat',
+      subtitle: 'Let&apos;s have a chat',
       content: '+1 (555) 123-4567',
       color: 'secondary',
       gradient: 'from-secondary-500 to-secondary-600',
@@ -68,7 +62,7 @@ const Contact = () => {
     {
       icon: Clock,
       title: 'Response Time',
-      subtitle: 'We\'re quick to respond',
+      subtitle: 'We&apos;re quick to respond',
       content: 'Within 4 hours',
       color: 'accent',
       gradient: 'from-accent-500 to-accent-600',
@@ -113,15 +107,7 @@ const Contact = () => {
     '6+ months'
   ]
 
-  const projectTypes = [
-    'Website Design & Development',
-    'E-commerce Platform',
-    'Web Application',
-    'Mobile App',
-    'UI/UX Design',
-    'SEO & Digital Marketing',
-    'Other'
-  ]
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -146,7 +132,7 @@ const Contact = () => {
         timeline: '',
         message: ''
       })
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -242,7 +228,7 @@ const Contact = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            Let's discuss your project goals and create something exceptional together. 
+            Let&apos;s discuss your project goals and create something exceptional together. 
             Get your free consultation and detailed project proposal today.
           </motion.p>
         </motion.div>
@@ -298,10 +284,10 @@ const Contact = () => {
             <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-white/10">
               <div className="mb-8">
                 <h3 className="text-3xl font-bold text-white mb-4">
-                  Let's Discuss Your Project
+                  Let&apos;s Discuss Your Project
                 </h3>
                 <p className="text-gray-300 leading-relaxed">
-                  Fill out the form below with your project details, and we'll get back to you within 4 hours with a detailed proposal.
+                  Fill out the form below with your project details, and we&apos;ll get back to you within 4 hours with a detailed proposal.
                 </p>
               </div>
 
@@ -438,7 +424,7 @@ const Contact = () => {
                     animate={{ opacity: 1, y: 0 }}
                   >
                     <CheckCircle className="w-5 h-5" />
-                    <span>Thank you! Your message has been sent successfully. We'll get back to you within 4 hours.</span>
+                    <span>Thank you! Your message has been sent successfully. We&apos;ll get back to you within 4 hours.</span>
                   </motion.div>
                 )}
 
@@ -468,7 +454,7 @@ const Contact = () => {
                 Why Work With Us?
               </h3>
               <p className="text-gray-300 leading-relaxed text-lg">
-                We're committed to delivering exceptional results and building long-term partnerships with our clients.
+                We&apos;re committed to delivering exceptional results and building long-term partnerships with our clients.
               </p>
             </div>
 

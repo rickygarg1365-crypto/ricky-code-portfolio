@@ -1,25 +1,17 @@
 'use client'
 
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { 
   Code2, 
   Palette, 
   Smartphone, 
-  Zap, 
   Search, 
-  Shield, 
-  Headphones, 
   Rocket,
   CheckCircle,
   ArrowRight,
   Sparkles,
-  Globe,
-  Database,
   Settings,
-  Users,
-  TrendingUp,
-  Award,
   Clock,
   Target
 } from 'lucide-react'
@@ -27,7 +19,7 @@ import {
 const Services = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const [activeService, setActiveService] = useState(0)
+
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -118,7 +110,7 @@ const Services = () => {
     }
   ]
 
-  const currentService = services[activeService]
+
 
   return (
     <section id="services" className="relative min-h-screen bg-white overflow-hidden" ref={ref}>
@@ -384,7 +376,7 @@ const Services = () => {
           </motion.div>
 
           <h3 className="text-3xl font-bold mb-4">
-            Let's Build Something Amazing Together
+            Let&apos;s Build Something Amazing Together
           </h3>
           <p className="text-white/90 mb-8 max-w-2xl mx-auto text-lg">
             Transform your ideas into powerful digital solutions. Get a free consultation and project quote today.

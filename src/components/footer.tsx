@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, ExternalLink, Heart, ArrowUp } from 'lucide-react'
+import { ExternalLink, ArrowUp } from 'lucide-react'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()

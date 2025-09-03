@@ -121,8 +121,8 @@ const About = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            We're a dynamic duo passionate about transforming ideas into stunning digital experiences. 
-            Our fusion of creative vision and technical expertise delivers solutions that don't just meet expectations—they exceed them.
+            We&apos;re a dynamic duo passionate about transforming ideas into stunning digital experiences. 
+            Our fusion of creative vision and technical expertise delivers solutions that don&apos;t just meet expectations—they exceed them.
           </motion.p>
         </motion.div>
 

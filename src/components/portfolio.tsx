@@ -2,7 +2,7 @@
 
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { ExternalLink, Code, Palette, Smartphone, Zap, Globe, Award, ChevronRight, Sparkles, Star, Users, Target, TrendingUp, Eye } from 'lucide-react'
+import { ExternalLink, Code, Smartphone, Globe, ChevronRight, Sparkles, Star, Target, TrendingUp, Eye } from 'lucide-react'
 
 const Portfolio = () => {
   const ref = useRef(null)
@@ -83,26 +83,6 @@ const Portfolio = () => {
   ]
 
   const currentProject = projects[activeProject]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  }
 
   return (
     <section id="portfolio" className="relative min-h-screen bg-gray-50 overflow-hidden" ref={ref}>
@@ -192,7 +172,7 @@ const Portfolio = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            Discover the innovative solutions we've crafted for our clients. Each project represents our commitment to excellence, creativity, and cutting-edge technology.
+            Discover the innovative solutions we&apos;ve crafted for our clients. Each project represents our commitment to excellence, creativity, and cutting-edge technology.
           </motion.p>
         </motion.div>
 
@@ -451,10 +431,10 @@ const Portfolio = () => {
           </motion.div>
 
           <h3 className="text-3xl font-bold text-gray-900 mb-4">
-            Let's Create Something Amazing Together
+            Let&apos;s Create Something Amazing Together
           </h3>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto text-lg">
-            Ready to bring your vision to life? Let's discuss your project and create a digital solution that exceeds your expectations.
+            Ready to bring your vision to life? Let&apos;s discuss your project and create a digital solution that exceeds your expectations.
           </p>
           
           <motion.button
