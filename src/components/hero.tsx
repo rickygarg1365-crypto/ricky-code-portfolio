@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Sparkles, Code2 as Code } from 'lucide-react'
+import { ArrowRight, Code2 as Code } from 'lucide-react'
 import { useRef } from 'react'
 
 const Hero = () => {

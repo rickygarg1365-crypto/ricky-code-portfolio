@@ -9,11 +9,9 @@ import {
   Search, 
   Rocket,
   CheckCircle,
-  ArrowRight,
   Sparkles,
   Settings,
-  Clock,
-  Target
+  Clock
 } from 'lucide-react'
 
 const Services = () => {

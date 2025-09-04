@@ -30,13 +30,11 @@ const ScrollProgress = () => {
       }
 
       // Detect if we're over a dark section
-      // Contact section and footer have dark backgrounds
+      // Contact section has dark background
       const contactSection = document.querySelector('#contact') as HTMLElement
-      const footer = document.querySelector('footer') as HTMLElement
       
-      if (contactSection && footer) {
+      if (contactSection) {
         const contactTop = contactSection.offsetTop
-        const footerTop = footer.offsetTop
         const viewportHeight = window.innerHeight
         
         // Check if we're in contact section or footer area

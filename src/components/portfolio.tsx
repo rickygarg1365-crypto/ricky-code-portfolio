@@ -3,12 +3,12 @@
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Image from 'next/image'
-import { ExternalLink, Code, Smartphone, Globe, ChevronRight, Sparkles, Star, Target, TrendingUp, Eye } from 'lucide-react'
+import { ExternalLink, Code, ChevronRight, Sparkles, Star, Target, Eye } from 'lucide-react'
 
 const Portfolio = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const [activeProject, setActiveProject] = useState(0)
+  const [activeProject] = useState(0)
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -145,14 +145,14 @@ const Portfolio = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Project Visual */}
-          <motion.div
-            className="relative"
+            {/* Project Visual */}
+            <motion.div
+              className="relative"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="relative group">
+            >
+              <div className="relative group">
               {/* Main Project Card */}
               <div className="relative bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 overflow-hidden">
                 {/* Status Badge */}
@@ -171,19 +171,19 @@ const Portfolio = () => {
 
                 {/* Project Preview */}
                 <div className="relative h-64 bg-gray-100 rounded-2xl mb-6 overflow-hidden shadow-lg">
-                  {/* Browser Frame */}
+                {/* Browser Frame */}
                   <div className="absolute top-2 left-2 right-2 z-20">
                     <div className="bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-sm">
-                      <div className="flex items-center justify-between">
-                        <div className="flex space-x-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex space-x-2">
                           <div className="w-2 h-2 bg-red-500 rounded-full"></div>
                           <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        </div>
+                    </div>
                         <div className="text-xs text-gray-600 font-mono">{currentProject.url}</div>
                       </div>
-                    </div>
                   </div>
+                </div>
 
                   {/* Actual Website Screenshot */}
                   <div className="absolute inset-0 pt-12">
@@ -201,10 +201,10 @@ const Portfolio = () => {
                       {/* Optional overlay for better text readability on hover */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                  </div>
-
+                    </div>
+                    
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
                 {/* Project Info */}
@@ -229,8 +229,8 @@ const Portfolio = () => {
                       </span>
                     )}
                   </div>
+                  </div>
                 </div>
-              </div>
 
               {/* Floating Action Button */}
               <motion.a
@@ -248,14 +248,14 @@ const Portfolio = () => {
                   repeat: Infinity 
                 }}
                 whileHover={{ scale: 1.2 }}
-              >
-                <ExternalLink className="w-8 h-8 text-white" />
+                >
+                  <ExternalLink className="w-8 h-8 text-white" />
               </motion.a>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
 
-          {/* Project Details */}
-          <motion.div
+            {/* Project Details */}
+            <motion.div
             className="space-y-8"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -270,7 +270,7 @@ const Portfolio = () => {
               <h3 className="text-3xl font-bold text-gray-900 mb-3">{currentProject.title}</h3>
               <h4 className={`text-xl font-semibold text-${currentProject.color}-600 mb-6`}>{currentProject.subtitle}</h4>
               <p className="text-gray-600 leading-relaxed text-lg">{currentProject.description}</p>
-            </div>
+                    </div>
 
             {/* Key Features */}
             <div>
@@ -287,8 +287,8 @@ const Portfolio = () => {
                     <div className={`w-2 h-2 bg-${currentProject.color}-500 rounded-full`}></div>
                     <span className="text-sm text-gray-700">{feature}</span>
                   </motion.div>
-                ))}
-              </div>
+                      ))}
+                    </div>
             </div>
 
             {/* Performance Metrics */}
@@ -297,20 +297,24 @@ const Portfolio = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
                   <div className="text-2xl font-bold text-green-600">{currentProject.metrics.performance}%</div>
-                  <div className="text-xs text-gray-600">Performance</div>
-                </div>
+                        <div className="text-xs text-gray-600">Performance</div>
+                      </div>
                 <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
                   <div className="text-2xl font-bold text-blue-600">{currentProject.metrics.accessibility}%</div>
-                  <div className="text-xs text-gray-600">Accessibility</div>
-                </div>
+                        <div className="text-xs text-gray-600">Accessibility</div>
+                      </div>
                 <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
                   <div className={`text-2xl font-bold text-${currentProject.color}-600`}>
-                    {currentProject.metrics.users || currentProject.metrics.downloads || currentProject.metrics.revenue}
+                    {currentProject.metrics.users}
                   </div>
-                  <div className="text-xs text-gray-600">
-                    {currentProject.metrics.users ? 'Users' : currentProject.metrics.downloads ? 'Downloads' : 'Revenue Growth'}
-                  </div>
-                </div>
+                  <div className="text-xs text-gray-600">Users</div>
+                      </div>
+                <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
+                  <div className={`text-2xl font-bold text-${currentProject.color}-600`}>
+                    {currentProject.metrics.rating}
+                      </div>
+                  <div className="text-xs text-gray-600">Rating</div>
+                    </div>
               </div>
             </div>
 
@@ -343,8 +347,8 @@ const Portfolio = () => {
                   <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </motion.a>
               )}
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
         </motion.div>
 
         {/* Call to Action */}
