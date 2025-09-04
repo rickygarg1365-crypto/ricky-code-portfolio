@@ -272,7 +272,7 @@ const Header = () => {
                         color: 'transparent'
                       }}
                     >
-                      Let's Build Together
+                      Let&apos;s Build Together
                     </motion.div>
                   </div>
                 </motion.div>
