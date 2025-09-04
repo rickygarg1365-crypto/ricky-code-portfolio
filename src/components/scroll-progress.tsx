@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 const ScrollProgress = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const [isDarkBackground, setIsDarkBackground] = useState(false)
   const { scrollYProgress } = useScroll()
   
   // Transform scroll progress to stroke-dashoffset for the circle
@@ -16,18 +17,39 @@ const ScrollProgress = () => {
     [circumference, 0]
   )
 
-  // Show/hide button based on scroll position
+  // Show/hide button and detect background color based on scroll position
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
+    const handleScroll = () => {
+      const scrollY = window.pageYOffset
+      
+      // Show/hide button based on scroll position
+      if (scrollY > 300) {
         setIsVisible(true)
       } else {
         setIsVisible(false)
       }
+
+      // Detect if we're over a dark section
+      // Contact section and footer have dark backgrounds
+      const contactSection = document.querySelector('#contact') as HTMLElement
+      const footer = document.querySelector('footer') as HTMLElement
+      
+      if (contactSection && footer) {
+        const contactTop = contactSection.offsetTop
+        const footerTop = footer.offsetTop
+        const viewportHeight = window.innerHeight
+        
+        // Check if we're in contact section or footer area
+        if (scrollY + viewportHeight > contactTop) {
+          setIsDarkBackground(true)
+        } else {
+          setIsDarkBackground(false)
+        }
+      }
     }
 
-    window.addEventListener('scroll', toggleVisibility)
-    return () => window.removeEventListener('scroll', toggleVisibility)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const scrollToTop = () => {
@@ -57,7 +79,11 @@ const ScrollProgress = () => {
     >
       <button
         onClick={scrollToTop}
-        className="relative group w-14 h-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-white/20 active:scale-95"
+        className={`relative group w-14 h-14 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 ${
+          isDarkBackground 
+            ? 'bg-white/10 border border-white/20 hover:bg-white/20' 
+            : 'bg-gray-900/10 border border-gray-900/20 hover:bg-gray-900/20'
+        }`}
         aria-label="Back to top"
       >
         {/* Progress Circle Background */}
@@ -70,7 +96,7 @@ const ScrollProgress = () => {
             cx="24"
             cy="24"
             r="20"
-            stroke="rgba(255, 255, 255, 0.1)"
+            stroke={isDarkBackground ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"}
             strokeWidth="2"
             fill="none"
           />
@@ -80,7 +106,7 @@ const ScrollProgress = () => {
             cx="24"
             cy="24"
             r="20"
-            stroke="url(#gradient)"
+            stroke={isDarkBackground ? "url(#gradientWhite)" : "url(#gradientPurple)"}
             strokeWidth="2"
             fill="none"
             strokeLinecap="round"
@@ -88,26 +114,39 @@ const ScrollProgress = () => {
             style={{ strokeDashoffset }}
           />
           
-          {/* Gradient definition */}
+          {/* Gradient definitions */}
           <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            {/* Purple gradient for light backgrounds */}
+            <linearGradient id="gradientPurple" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#6366f1" />
               <stop offset="50%" stopColor="#8b5cf6" />
               <stop offset="100%" stopColor="#6366f1" />
+            </linearGradient>
+            {/* White gradient for dark backgrounds */}
+            <linearGradient id="gradientWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="50%" stopColor="#f3f4f6" />
+              <stop offset="100%" stopColor="#ffffff" />
             </linearGradient>
           </defs>
         </svg>
 
         {/* Arrow Icon */}
         <ArrowUp 
-          className="w-5 h-5 text-purple-600 group-hover:text-purple-400 transition-colors duration-300" 
+          className={`w-5 h-5 transition-colors duration-300 ${
+            isDarkBackground 
+              ? 'text-white group-hover:text-gray-200' 
+              : 'text-primary-600 group-hover:text-primary-500'
+          }`}
         />
 
         {/* Hover Effect Glow */}
         <div 
           className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
           style={{ 
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 50%, transparent 70%)'
+            background: isDarkBackground
+              ? 'radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 50%, transparent 70%)'
           }}
         />
       </button>
