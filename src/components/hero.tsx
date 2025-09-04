@@ -34,7 +34,7 @@ const Hero = () => {
     <motion.section
       ref={ref}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900 pt-16 md:pt-20"
       style={{ y }}
     >
       {/* Background Pattern */}
