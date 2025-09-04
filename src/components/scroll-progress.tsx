@@ -91,23 +91,23 @@ const ScrollProgress = () => {
           {/* Gradient definition */}
           <defs>
             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#B32E1D" />
-              <stop offset="50%" stopColor="#E53935" />
-              <stop offset="100%" stopColor="#B32E1D" />
+              <stop offset="0%" stopColor="#6366f1" />
+              <stop offset="50%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="#6366f1" />
             </linearGradient>
           </defs>
         </svg>
 
         {/* Arrow Icon */}
         <ArrowUp 
-          className="w-5 h-5 text-white group-hover:text-red-300 transition-colors duration-300" 
+          className="w-5 h-5 text-purple-600 group-hover:text-purple-400 transition-colors duration-300" 
         />
 
         {/* Hover Effect Glow */}
         <div 
           className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
           style={{ 
-            background: 'radial-gradient(circle, rgba(179, 46, 29, 0.2) 0%, rgba(179, 46, 29, 0.1) 50%, transparent 70%)'
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 50%, transparent 70%)'
           }}
         />
       </button>

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, ArrowUp } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -26,9 +26,6 @@ const Footer = () => {
     }
   }
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
 
   return (
     <footer className="bg-gray-900 text-white relative overflow-hidden">
@@ -111,7 +108,7 @@ const Footer = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
               <motion.div
-                className="flex items-center space-x-2 text-gray-400"
+                className="flex items-center space-x-2 text-gray-400 w-full justify-center"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
@@ -119,20 +116,6 @@ const Footer = () => {
               >
                 <span>&copy; {currentYear} Ricky & Code. All rights reserved.</span>
               </motion.div>
-
-              {/* Scroll to Top Button */}
-              <motion.button
-                onClick={scrollToTop}
-                className="group bg-primary-500 hover:bg-primary-600 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <ArrowUp className="w-4 h-4 text-white group-hover:-translate-y-1 transition-transform" />
-              </motion.button>
             </div>
           </div>
         </div>
