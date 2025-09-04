@@ -91,8 +91,13 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-192x192.png" />
         <link rel="shortcut icon" href="/favicon.svg" />
         
-        {/* PWA Install Prompt Meta */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+                  {/* PWA Install Prompt Meta */}
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+          
+          {/* Screen Orientation Support */}
+          <meta name="screen-orientation" content="landscape" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
       <body className={`${inter.variable} antialiased`}>
         {children}

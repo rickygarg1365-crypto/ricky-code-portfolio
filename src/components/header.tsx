@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { ChevronRight } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronRight, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +31,7 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
+    setIsOpen(false) // Close mobile menu when navigation occurs
   }
 
   return (
@@ -63,8 +65,8 @@ const Header = () => {
             </h1>
           </motion.div>
 
-          {/* Navigation */}
-          <nav className="flex items-center space-x-8">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.button
                 key={item.name}
@@ -105,8 +107,63 @@ const Header = () => {
             ))}
           </nav>
 
+          {/* Mobile Menu Button */}
+          <motion.button
+            className={cn(
+              "md:hidden p-2 rounded-lg transition-colors duration-300",
+              isScrolled 
+                ? "text-gray-700 hover:bg-gray-100" 
+                : "text-white hover:bg-white/10"
+            )}
+            onClick={() => setIsOpen(!isOpen)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </motion.button>
+
         </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="md:hidden bg-white border-t border-gray-200 shadow-lg"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <div className="px-4 py-6 space-y-4">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={cn(
+                    'w-full text-left py-3 px-4 rounded-lg transition-all duration-200',
+                    item.isContact
+                      ? 'bg-primary-500 hover:bg-primary-600 text-white text-center font-bold'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-primary-600 font-bold'
+                  )}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex items-center justify-between">
+                    {item.name}
+                    {item.isContact && (
+                      <ChevronRight className="w-4 h-4" />
+                    )}
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </motion.header>
   )
