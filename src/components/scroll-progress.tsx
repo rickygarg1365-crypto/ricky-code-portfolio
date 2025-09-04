@@ -82,7 +82,7 @@ const ScrollProgress = () => {
         className={`relative group w-14 h-14 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 ${
           isDarkBackground 
             ? 'bg-white/10 border border-white/20 hover:bg-white/20' 
-            : 'bg-gray-900/10 border border-gray-900/20 hover:bg-gray-900/20'
+            : 'bg-white/10 border border-white/20 hover:bg-white/20'
         }`}
         aria-label="Back to top"
       >

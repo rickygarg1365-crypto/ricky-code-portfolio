@@ -15,11 +15,21 @@ const About = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
 
+  const getColorValue = (colorName: string) => {
+    const colorMap: { [key: string]: string } = {
+      primary: '#6366f1',
+      secondary: '#ec4899',
+      accent: '#f59e0b',
+      green: '#10b981'
+    }
+    return colorMap[colorName] || '#6b7280'
+  }
+
   const stats = [
     { value: '100%', label: 'Client Satisfaction', icon: Award, color: 'primary' },
     { value: '50+', label: 'Projects Delivered', icon: Target, color: 'secondary' },
     { value: '24/7', label: 'Support Available', icon: Zap, color: 'accent' },
-    { value: '5★', label: 'Average Rating', icon: Users, color: 'primary' },
+    { value: '5★', label: 'Average Rating', icon: Users, color: 'green' },
   ]
 
   const skills = [
@@ -36,7 +46,8 @@ const About = () => {
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='grid' width='20' height='20' patternUnits='userSpaceOnUse'><path d='M 20 0 L 0 0 0 20' fill='none' stroke='currentColor' stroke-width='0.5'/></pattern></defs><rect width='100' height='100' fill='url(%23grid)'/></svg>")`,
+          backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='grid' width='20' height='20' patternUnits='userSpaceOnUse'><rect x='0' y='0' width='20' height='20' fill='none' stroke='currentColor' stroke-width='0.5'/></pattern></defs><rect width='100' height='100' fill='url(%23grid)'/></svg>")`,
+          backgroundSize: '20vw 20vw'
         }} />
       </div>
 
@@ -148,7 +159,10 @@ const About = () => {
                 <div className={`absolute inset-0 bg-gradient-to-r from-${stat.color}-500/0 to-${stat.color}-500/0 group-hover:from-${stat.color}-500/5 group-hover:to-${stat.color}-500/10 rounded-2xl transition-all duration-300`} />
                 
                 <div className="relative">
-                  <div className={`w-14 h-14 bg-gradient-to-br from-${stat.color}-400 to-${stat.color}-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <div 
+                    className="w-14 h-14 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
+                    style={{ backgroundColor: getColorValue(stat.color) }}
+                  >
                     <Icon className="w-7 h-7 text-white" />
                   </div>
                   <motion.div 

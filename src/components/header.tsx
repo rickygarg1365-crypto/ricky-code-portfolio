@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -31,7 +30,6 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
-    setIsOpen(false)
   }
 
   return (
@@ -65,18 +63,17 @@ const Header = () => {
             </h1>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* Navigation */}
+          <nav className="flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
                 className={cn(
-                  'relative px-4 py-2 text-sm font-medium transition-all duration-200',
+                  'relative transition-all duration-200',
                   item.isContact
-                    ? 'bg-primary-500 hover:bg-primary-600 text-white rounded-lg'
-                    : cn(
-                        'transition-colors duration-300',
+                    ? 'px-6 py-3 text-sm font-bold bg-primary-500 hover:bg-primary-600 text-white rounded-lg'
+                    : 'px-4 py-2 text-sm font-bold transition-colors duration-300 ' + cn(
                         isScrolled 
                           ? 'text-gray-700 hover:text-primary-600' 
                           : 'text-gray-300 hover:text-white'
@@ -108,87 +105,9 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Mobile menu button */}
-          <motion.button
-            className={cn(
-              "md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg transition-colors",
-              isScrolled 
-                ? "bg-gray-100 hover:bg-gray-200" 
-                : "bg-white/20 hover:bg-white/30"
-            )}
-            onClick={() => setIsOpen(!isOpen)}
-            whileTap={{ scale: 0.95 }}
-          >
-            <AnimatePresence mode="wait">
-              {isOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X className={cn(
-                    "w-5 h-5 transition-colors duration-300",
-                    isScrolled ? "text-gray-700" : "text-white"
-                  )} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu className={cn(
-                    "w-5 h-5 transition-colors duration-300",
-                    isScrolled ? "text-gray-700" : "text-white"
-                  )} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            <div className="px-4 py-6 space-y-4">
-              {navItems.map((item, index) => (
-                <motion.button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className={cn(
-                    'block w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200',
-                    item.isContact
-                      ? 'bg-primary-500 hover:bg-primary-600 text-white'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-primary-600'
-                  )}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ x: 4 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center justify-between">
-                    {item.name}
-                    <ChevronRight className="w-4 h-4" />
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.header>
   )
 }

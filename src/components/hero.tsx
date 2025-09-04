@@ -139,17 +139,6 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
-            <motion.div
-              className="inline-flex items-center space-x-2 bg-gray-800 border border-gray-700 rounded-full px-4 py-2 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Sparkles className="w-4 h-4 text-primary-400" />
-              <span className="text-sm font-medium text-gray-300">
-                Premium Web Development
-              </span>
-            </motion.div>
 
             <motion.h1
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 text-white"

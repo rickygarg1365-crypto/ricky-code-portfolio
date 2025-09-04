@@ -15,8 +15,8 @@ const Footer = () => {
   ]
 
   const contactInfo = [
-    { label: 'Email', value: 'hello@rickyandcode.com' },
-    { label: 'Phone', value: '+1 (555) 123-4567' }
+    { label: 'Email', value: 'Rickygargbc1365@gmail.com' },
+    { label: 'Phone', value: '+1 (778) 682-5690' }
   ]
 
   const scrollToSection = (href: string) => {

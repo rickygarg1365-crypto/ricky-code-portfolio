@@ -45,7 +45,7 @@ const Contact = () => {
       icon: Mail,
       title: 'Email Us',
       subtitle: 'Send us a message',
-      content: 'hello@rickyandcode.com',
+      content: 'Rickygargbc1365@gmail.com',
       color: 'primary',
       gradient: 'from-primary-500 to-primary-600',
       bgGradient: 'from-primary-50 to-primary-100'
@@ -54,7 +54,7 @@ const Contact = () => {
       icon: Phone,
       title: 'Call Us',
       subtitle: 'Let&apos;s have a chat',
-      content: '+1 (555) 123-4567',
+      content: '+1 (778) 682-5690',
       color: 'secondary',
       gradient: 'from-secondary-500 to-secondary-600',
       bgGradient: 'from-secondary-50 to-secondary-100'
@@ -94,6 +94,7 @@ const Contact = () => {
   ]
 
   const budgetOptions = [
+    '$1,000 - $5,000',
     '$5,000 - $15,000',
     '$15,000 - $30,000',
     '$30,000 - $60,000',
@@ -101,6 +102,7 @@ const Contact = () => {
   ]
 
   const timelineOptions = [
+    '3-10 days',
     '2-4 weeks',
     '1-2 months',
     '3-4 months',
@@ -234,17 +236,17 @@ const Contact = () => {
         </motion.div>
 
         {/* Contact Info Cards */}
-        <motion.div
+          <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          {contactInfo.map((info, index) => {
-            const Icon = info.icon
-            return (
-              <motion.div
-                key={info.title}
+              {contactInfo.map((info, index) => {
+                const Icon = info.icon
+                return (
+                  <motion.div
+                    key={info.title}
                 className="group relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -257,21 +259,21 @@ const Contact = () => {
                 <div className="relative z-10 text-center">
                   <div className={`w-16 h-16 bg-gradient-to-br ${info.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
                     <Icon className="w-8 h-8 text-white" />
-                  </div>
+                    </div>
                   
                   <h3 className="text-xl font-bold text-white mb-2">{info.title}</h3>
                   <p className="text-gray-400 text-sm mb-3">{info.subtitle}</p>
-                  <p className={`text-${info.color}-400 font-semibold`}>{info.content}</p>
-                </div>
+                  <p className={`font-semibold ${info.title === 'Email Us' ? 'text-white' : `text-${info.color}-400`}`}>{info.content}</p>
+                    </div>
 
                 {/* Hover Effect Border */}
                 <motion.div
                   className={`absolute inset-0 rounded-3xl border-2 border-${info.color}-500/0 group-hover:border-${info.color}-500/30 transition-all duration-300`}
                 />
-              </motion.div>
-            )
-          })}
-        </motion.div>
+                  </motion.div>
+                )
+              })}
+            </motion.div>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -285,10 +287,10 @@ const Contact = () => {
               <div className="mb-8">
                 <h3 className="text-3xl font-bold text-white mb-4">
                   Let&apos;s Discuss Your Project
-                </h3>
+              </h3>
                 <p className="text-gray-300 leading-relaxed">
                   Fill out the form below with your project details, and we&apos;ll get back to you within 4 hours with a detailed proposal.
-                </p>
+              </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -397,7 +399,7 @@ const Contact = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="group relative w-full bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -480,13 +482,13 @@ const Contact = () => {
                   </motion.div>
                 )
               })}
-            </div>
+        </div>
 
             {/* Call to Action */}
-            <motion.div
-              className="bg-gradient-to-br from-primary-500/20 to-secondary-500/20 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/30"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        <motion.div
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 1.6 }}
             >
               <div className="text-center">
@@ -521,7 +523,7 @@ const Contact = () => {
               </div>
             </motion.div>
           </motion.div>
-        </div>
+          </div>
       </div>
     </section>
   )

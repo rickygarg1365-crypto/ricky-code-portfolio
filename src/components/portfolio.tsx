@@ -2,6 +2,7 @@
 
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 import { ExternalLink, Code, Smartphone, Globe, ChevronRight, Sparkles, Star, Target, TrendingUp, Eye } from 'lucide-react'
 
 const Portfolio = () => {
@@ -19,77 +20,36 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      subtitle: 'Next-Gen Shopping Experience',
-      description: 'A revolutionary e-commerce platform built with React and Next.js, featuring real-time inventory, AI-powered recommendations, and seamless payment integration.',
-      category: 'Web Application',
+      title: 'Malaking Hot Pot',
+      subtitle: 'Complete Restaurant Website & PWA',
+      description: 'A comprehensive hot pot restaurant website built with Next.js 14, featuring interactive menu navigation, location finder, career portal, and PWA capabilities. Converted from static HTML to a modern React application with full responsive design and SEO optimization.',
+      category: 'Restaurant Website',
       status: 'Live',
-      url: 'https://example.com',
-      github: 'https://github.com',
-      technologies: ['Next.js', 'React', 'TypeScript', 'Stripe', 'Prisma', 'PostgreSQL'],
-      features: ['AI Recommendations', 'Real-time Inventory', 'Payment Gateway', 'Admin Dashboard'],
+      url: 'https://malakinghotpot.ca',
+      github: 'https://github.com/rickygarg1365-crypto/Project-Malaking',
+      technologies: ['Next.js 14', 'React 18', 'CSS3', 'JavaScript ES6+', 'PWA', 'Google Maps'],
+      features: ['Interactive Menu', 'Location Finder', 'Career Portal', 'PWA Support', 'Mobile-First Design', 'Google Maps Integration'],
       metrics: {
-        performance: 98,
-        accessibility: 96,
+        performance: 90,
+        accessibility: 95,
         seo: 94,
-        users: '50K+',
-        revenue: '+150%'
+        users: '5K+',
+        rating: '4.8★'
       },
       color: 'primary',
       gradient: 'from-primary-500 to-primary-600'
-    },
-    {
-      id: 2,
-      title: 'SaaS Dashboard',
-      subtitle: 'Analytics & Management Hub',
-      description: 'Comprehensive SaaS dashboard with advanced analytics, user management, and real-time data visualization for enterprise clients.',
-      category: 'SaaS Platform',
-      status: 'Development',
-      url: 'https://example.com',
-      github: 'https://github.com',
-      technologies: ['React', 'D3.js', 'Node.js', 'MongoDB', 'Socket.io', 'AWS'],
-      features: ['Real-time Analytics', 'User Management', 'Data Visualization', 'API Integration'],
-      metrics: {
-        performance: 96,
-        accessibility: 98,
-        seo: 92,
-        users: '25K+',
-        growth: '+200%'
-      },
-      color: 'secondary',
-      gradient: 'from-secondary-500 to-secondary-600'
-    },
-    {
-      id: 3,
-      title: 'Mobile App',
-      subtitle: 'Cross-Platform Solution',
-      description: 'Native mobile application for iOS and Android with offline capabilities, push notifications, and seamless synchronization.',
-      category: 'Mobile App',
-      status: 'Live',
-      url: 'https://example.com',
-      github: 'https://github.com',
-      technologies: ['React Native', 'Expo', 'Firebase', 'Redux', 'TypeScript'],
-      features: ['Offline Mode', 'Push Notifications', 'Real-time Sync', 'Biometric Auth'],
-      metrics: {
-        performance: 94,
-        accessibility: 95,
-        seo: 90,
-        downloads: '100K+',
-        rating: '4.8★'
-      },
-      color: 'accent',
-      gradient: 'from-accent-500 to-accent-600'
     }
   ]
 
   const currentProject = projects[activeProject]
 
   return (
-    <section id="portfolio" className="relative min-h-screen bg-gray-50 overflow-hidden" ref={ref}>
+    <section id="portfolio" className="relative min-h-screen bg-white overflow-hidden" ref={ref}>
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
+      <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='hexagon' width='20' height='20' patternUnits='userSpaceOnUse'><polygon points='10,1 18,6 18,14 10,19 2,14 2,6' fill='none' stroke='currentColor' stroke-width='0.5'/></pattern></defs><rect width='100' height='100' fill='url(%23hexagon)'/></svg>")`,
+          backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='grid' width='20' height='20' patternUnits='userSpaceOnUse'><rect x='0' y='0' width='20' height='20' fill='none' stroke='currentColor' stroke-width='0.5'/></pattern></defs><rect width='100' height='100' fill='url(%23grid)'/></svg>")`,
+          backgroundSize: '20vw 20vw'
         }} />
       </div>
 
@@ -176,36 +136,6 @@ const Portfolio = () => {
           </motion.p>
         </motion.div>
 
-        {/* Project Navigation */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-4 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          {projects.map((project, index) => (
-            <motion.button
-              key={project.id}
-              onClick={() => setActiveProject(index)}
-              className={`group relative px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
-                activeProject === index
-                  ? `bg-gradient-to-r ${project.gradient} text-white shadow-lg`
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">{project.title}</span>
-              {activeProject === index && (
-                <motion.div
-                  className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/20 to-transparent"
-                  layoutId="projectIndicator"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-            </motion.button>
-          ))}
-        </motion.div>
 
         {/* Main Project Display */}
         <motion.div
@@ -240,42 +170,41 @@ const Portfolio = () => {
                 </div>
 
                 {/* Project Preview */}
-                <div className={`relative h-64 bg-gradient-to-br ${currentProject.gradient} rounded-2xl mb-6 overflow-hidden`}>
+                <div className="relative h-64 bg-gray-100 rounded-2xl mb-6 overflow-hidden shadow-lg">
                   {/* Browser Frame */}
-                  <div className="absolute top-4 left-4 right-4">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
+                  <div className="absolute top-2 left-2 right-2 z-20">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-sm">
                       <div className="flex items-center justify-between">
                         <div className="flex space-x-2">
-                          <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                          <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <div className="text-xs text-white/80">{currentProject.url}</div>
+                        <div className="text-xs text-gray-600 font-mono">{currentProject.url}</div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Project Content Mockup */}
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 space-y-2">
-                      <div className="h-2 bg-gray-300 rounded w-3/4"></div>
-                      <div className="h-2 bg-gray-300 rounded w-1/2"></div>
-                      <div className="h-2 bg-gray-300 rounded w-2/3"></div>
+                  {/* Actual Website Screenshot */}
+                  <div className="absolute inset-0 pt-12">
+                    <div className="w-full h-full relative overflow-hidden">
+                      {/* Actual Screenshot Image */}
+                      <Image
+                        src="/images/malaking-homepage.png"
+                        alt="Malaking Hot Pot Website Homepage"
+                        fill
+                        className="object-cover object-top"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority
+                      />
+                      
+                      {/* Optional overlay for better text readability on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </div>
 
-                  {/* Floating Tech Icons */}
-                  <motion.div
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                      {currentProject.category === 'Web Application' && <Globe className="w-8 h-8 text-white" />}
-                      {currentProject.category === 'SaaS Platform' && <TrendingUp className="w-8 h-8 text-white" />}
-                      {currentProject.category === 'Mobile App' && <Smartphone className="w-8 h-8 text-white" />}
-                    </div>
-                  </motion.div>
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
                 {/* Project Info */}
@@ -304,8 +233,11 @@ const Portfolio = () => {
               </div>
 
               {/* Floating Action Button */}
-              <motion.div
-                className={`absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br ${currentProject.gradient} rounded-2xl flex items-center justify-center shadow-lg`}
+              <motion.a
+                href={currentProject.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br ${currentProject.gradient} rounded-2xl flex items-center justify-center shadow-lg cursor-pointer`}
                 animate={{ 
                   rotate: [0, 360],
                   scale: [1, 1.1, 1]
@@ -318,7 +250,7 @@ const Portfolio = () => {
                 whileHover={{ scale: 1.2 }}
               >
                 <ExternalLink className="w-8 h-8 text-white" />
-              </motion.div>
+              </motion.a>
             </div>
           </motion.div>
 
@@ -397,18 +329,20 @@ const Portfolio = () => {
                 <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </motion.a>
 
-              <motion.a
-                href={currentProject.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-center border-2 border-gray-200 text-gray-700 hover:bg-gray-50 px-8 py-4 rounded-2xl font-semibold transition-all duration-300"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Code className="mr-2 w-5 h-5" />
-                View Code
-                <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </motion.a>
+              {currentProject.github && (
+                <motion.a
+                  href={currentProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-center border-2 border-gray-200 text-gray-700 hover:bg-gray-50 px-8 py-4 rounded-2xl font-semibold transition-all duration-300"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Code className="mr-2 w-5 h-5" />
+                  View Code
+                  <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.a>
+              )}
             </div>
           </motion.div>
         </motion.div>
@@ -444,7 +378,7 @@ const Portfolio = () => {
                 element.scrollIntoView({ behavior: 'smooth' })
               }
             }}
-            className="group bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-10 py-5 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="group bg-primary-500 hover:bg-primary-600 text-white px-10 py-5 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.95 }}
           >

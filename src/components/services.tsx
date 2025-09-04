@@ -28,6 +28,29 @@ const Services = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '12%'])
 
+  // Helper function to get color values
+  const getColorValue = (colorName: string, shade: string) => {
+    const colorMap: { [key: string]: { [key: string]: string } } = {
+      primary: {
+        '500': '#6366f1',
+        '600': '#4f46e5'
+      },
+      secondary: {
+        '500': '#ec4899',
+        '600': '#db2777'
+      },
+      accent: {
+        '500': '#f59e0b',
+        '600': '#d97706'
+      },
+      green: {
+        '500': '#10b981',
+        '600': '#059669'
+      }
+    }
+    return colorMap[colorName]?.[shade] || '#6b7280'
+  }
+
   const services = [
     {
       icon: Code2,
@@ -68,7 +91,7 @@ const Services = () => {
       subtitle: 'Growth & Optimization',
       description: 'Comprehensive digital strategy including SEO, performance optimization, and growth hacking to maximize your online presence.',
       features: ['SEO Optimization', 'Performance Tuning', 'Analytics Setup', 'Growth Strategy'],
-      color: 'primary',
+      color: 'green',
       gradient: 'from-green-500 to-emerald-600',
       bgGradient: 'from-green-50 to-emerald-100',
       metrics: { traffic: '+180%', rankings: 'Top 3', leads: '+250%' }
@@ -118,6 +141,8 @@ const Services = () => {
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
           backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='diamond' width='20' height='20' patternUnits='userSpaceOnUse'><path d='M10,0 L20,10 L10,20 L0,10 Z' fill='none' stroke='currentColor' stroke-width='0.5'/></pattern></defs><rect width='100' height='100' fill='url(%23diamond)'/></svg>")`,
+          backgroundSize: '20vw 20vw',
+          backgroundPosition: '200% 0'
         }} />
       </div>
 
@@ -225,7 +250,7 @@ const Services = () => {
               >
                 {/* Background Gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                
+
                 {/* Content */}
                 <div className="relative z-10">
                   {/* Header */}
@@ -242,7 +267,12 @@ const Services = () => {
                   {/* Title & Description */}
                   <div className="mb-6">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">{service.title}</h3>
-                    <h4 className={`text-lg font-semibold text-${service.color}-600 mb-4`}>{service.subtitle}</h4>
+                    <h4 
+                      className="text-lg font-semibold mb-4"
+                      style={{ color: getColorValue(service.color, '600') }}
+                    >
+                      {service.subtitle}
+                    </h4>
                     <p className="text-gray-600 leading-relaxed">{service.description}</p>
                   </div>
 
@@ -257,7 +287,10 @@ const Services = () => {
                           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                           transition={{ duration: 0.4, delay: 0.9 + index * 0.1 + featureIndex * 0.05 }}
                         >
-                          <CheckCircle className={`w-4 h-4 text-${service.color}-500 flex-shrink-0`} />
+                          <CheckCircle 
+                            className="w-4 h-4 flex-shrink-0" 
+                            style={{ color: getColorValue(service.color, '500') }}
+                          />
                           <span>{feature}</span>
                         </motion.div>
                       ))}
@@ -268,7 +301,12 @@ const Services = () => {
                   <div className="flex justify-between items-center pt-4 border-t border-gray-100">
                     {Object.entries(service.metrics).map(([key, value]) => (
                       <div key={key} className="text-center">
-                        <div className={`text-lg font-bold text-${service.color}-600`}>{value}</div>
+                        <div 
+                          className="text-lg font-bold"
+                          style={{ color: getColorValue(service.color, '600') }}
+                        >
+                          {value}
+                        </div>
                         <div className="text-xs text-gray-500 capitalize">{key}</div>
                       </div>
                     ))}
@@ -358,66 +396,6 @@ const Services = () => {
           </div>
         </motion.div>
 
-        {/* Call to Action */}
-        <motion.div
-          className="text-center bg-gradient-to-br from-primary-500 to-secondary-500 rounded-3xl p-12 text-white"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-        >
-          <motion.div
-            className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-          >
-            <Target className="w-4 h-4 text-white" />
-            <span className="text-sm font-medium text-white">Ready to Get Started?</span>
-          </motion.div>
-
-          <h3 className="text-3xl font-bold mb-4">
-            Let&apos;s Build Something Amazing Together
-          </h3>
-          <p className="text-white/90 mb-8 max-w-2xl mx-auto text-lg">
-            Transform your ideas into powerful digital solutions. Get a free consultation and project quote today.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.button
-              onClick={() => {
-                const element = document.querySelector('#contact')
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' })
-                }
-              }}
-              className="group bg-white text-gray-900 px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="flex items-center justify-center">
-                Get Free Consultation
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </motion.button>
-
-            <motion.button
-              onClick={() => {
-                const element = document.querySelector('#portfolio')
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' })
-                }
-              }}
-              className="group border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-2xl font-semibold transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="flex items-center justify-center">
-                View Our Work
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </motion.button>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
