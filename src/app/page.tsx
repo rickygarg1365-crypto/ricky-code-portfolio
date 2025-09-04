@@ -6,6 +6,7 @@ import Services from '@/components/services'
 import Contact from '@/components/contact'
 import Footer from '@/components/footer'
 import ScrollProgress from '@/components/scroll-progress'
+import PWAInstall from '@/components/pwa-install'
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollProgress />
+      <PWAInstall />
     </div>
   );
 }
