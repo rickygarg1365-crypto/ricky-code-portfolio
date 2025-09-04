@@ -5,6 +5,7 @@ import Portfolio from '@/components/portfolio'
 import Services from '@/components/services'
 import Contact from '@/components/contact'
 import Footer from '@/components/footer'
+import ScrollProgress from '@/components/scroll-progress'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <ScrollProgress />
     </div>
   );
 }
