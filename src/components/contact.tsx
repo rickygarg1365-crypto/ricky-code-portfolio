@@ -48,25 +48,31 @@ const Contact = () => {
       content: 'Rickygargbc1365@gmail.com',
       color: 'primary',
       gradient: 'from-primary-500 to-primary-600',
-      bgGradient: 'from-primary-50 to-primary-100'
+      bgGradient: 'from-primary-50 to-primary-100',
+      action: () => window.open('mailto:Rickygargbc1365@gmail.com?subject=Project Inquiry&body=Hi, I would like to discuss a project with you.', '_blank'),
+      actionable: true
     },
     {
       icon: Phone,
       title: 'Call Us',
-      subtitle: 'Let&apos;s have a chat',
+      subtitle: "Let's have a chat",
       content: '+1 (778) 682-5690',
       color: 'secondary',
       gradient: 'from-secondary-500 to-secondary-600',
-      bgGradient: 'from-secondary-50 to-secondary-100'
+      bgGradient: 'from-secondary-50 to-secondary-100',
+      action: () => window.open('tel:+17786825690', '_self'),
+      actionable: true
     },
     {
       icon: Clock,
       title: 'Response Time',
-      subtitle: 'We&apos;re quick to respond',
+      subtitle: "We're quick to respond",
       content: 'Within 4 hours',
       color: 'accent',
       gradient: 'from-accent-500 to-accent-600',
-      bgGradient: 'from-accent-50 to-accent-100'
+      bgGradient: 'from-accent-50 to-accent-100',
+      action: () => {},
+      actionable: false
     }
   ]
 
@@ -247,29 +253,47 @@ const Contact = () => {
                 return (
                   <motion.div
                     key={info.title}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-              >
-                {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${info.bgGradient} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity duration-300`} />
-                
-                <div className="relative z-10 text-center">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${info.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-8 h-8 text-white" />
-                    </div>
-                  
-                  <h3 className="text-xl font-bold text-white mb-2">{info.title}</h3>
-                  <p className="text-gray-400 text-sm mb-3">{info.subtitle}</p>
-                  <p className={`font-semibold ${info.title === 'Email Us' ? 'text-white' : `text-${info.color}-400`}`}>{info.content}</p>
+                    className={`group relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-300 ${
+                      info.actionable ? 'cursor-pointer' : 'cursor-default'
+                    }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    onClick={info.actionable ? info.action : undefined}
+                  >
+                    {/* Background Gradient */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${info.bgGradient} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity duration-300`} />
+                    
+                    <div className="relative z-10 text-center">
+                      <div className={`w-16 h-16 bg-gradient-to-br ${info.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                      
+                      <h3 className="text-xl font-bold text-white mb-2">{info.title}</h3>
+                      <p className="text-gray-400 text-sm mb-3">{info.subtitle}</p>
+                      <p className={`font-semibold ${info.title === 'Email Us' ? 'text-white' : `text-${info.color}-400`}`}>
+                        {info.content}
+                      </p>
+                      
+                      {/* Action Indicator for clickable items */}
+                      {info.actionable && (
+                        <motion.div
+                          className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          initial={{ y: 10 }}
+                          whileHover={{ y: 0 }}
+                        >
+                          <span className="text-xs text-gray-300 bg-white/10 px-3 py-1 rounded-full">
+                            Click to {info.title === 'Email Us' ? 'compose email' : 'call now'}
+                          </span>
+                        </motion.div>
+                      )}
                     </div>
 
-                {/* Hover Effect Border */}
-                <motion.div
-                  className={`absolute inset-0 rounded-3xl border-2 border-${info.color}-500/0 group-hover:border-${info.color}-500/30 transition-all duration-300`}
-                />
+                    {/* Hover Effect Border */}
+                    <motion.div
+                      className={`absolute inset-0 rounded-3xl border-2 border-${info.color}-500/0 group-hover:border-${info.color}-500/30 transition-all duration-300`}
+                    />
                   </motion.div>
                 )
               })}
