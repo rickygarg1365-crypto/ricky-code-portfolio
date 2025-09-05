@@ -467,15 +467,25 @@ const Portfolio = () => {
             {/* Performance Metrics */}
             <div>
               <h5 className="font-semibold text-gray-900 mb-4">Performance Metrics</h5>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
-                  <div className="text-2xl font-bold text-green-600">{currentProject.metrics.performance}%</div>
-                        <div className="text-xs text-gray-600">Performance</div>
-                      </div>
-                <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
-                  <div className="text-2xl font-bold text-blue-600">{currentProject.metrics.accessibility}%</div>
-                        <div className="text-xs text-gray-600">Accessibility</div>
-                      </div>
+                             <div className="grid grid-cols-3 gap-4">
+                 <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
+                   <div 
+                     className="text-2xl font-bold transition-colors duration-500"
+                     style={{ color: currentProject.brandColors.primary }}
+                   >
+                     {currentProject.metrics.performance}%
+                   </div>
+                   <div className="text-xs text-gray-600">Performance</div>
+                       </div>
+                 <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
+                   <div 
+                     className="text-2xl font-bold transition-colors duration-500"
+                     style={{ color: currentProject.brandColors.primary }}
+                   >
+                     {currentProject.metrics.accessibility}%
+                   </div>
+                   <div className="text-xs text-gray-600">Accessibility</div>
+                       </div>
                                  <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
                    <div 
                      className="text-2xl font-bold transition-colors duration-500"
@@ -560,22 +570,25 @@ const Portfolio = () => {
             Ready to bring your vision to life? Let&apos;s discuss your project and create a digital solution that exceeds your expectations.
           </p>
           
-          <motion.button
-            onClick={() => {
-              const element = document.querySelector('#contact')
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' })
-              }
-            }}
-            className="group bg-primary-500 hover:bg-primary-600 text-white px-10 py-5 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="flex items-center">
-              Start Your Project
-              <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </motion.button>
+                     <motion.button
+             onClick={() => {
+               const element = document.querySelector('#contact')
+               if (element) {
+                 element.scrollIntoView({ behavior: 'smooth' })
+               }
+             }}
+             className="group text-white px-10 py-5 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+             style={{
+               background: `linear-gradient(135deg, ${currentProject.brandColors.primary}, ${currentProject.brandColors.secondary})`
+             }}
+             whileHover={{ scale: 1.05, y: -3 }}
+             whileTap={{ scale: 0.95 }}
+           >
+             <span className="flex items-center">
+               Start Your Project
+               <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+             </span>
+           </motion.button>
         </motion.div>
       </div>
     </section>
