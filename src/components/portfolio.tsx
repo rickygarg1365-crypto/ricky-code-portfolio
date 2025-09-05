@@ -3,12 +3,12 @@
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Image from 'next/image'
-import { ExternalLink, Code, ChevronRight, Sparkles, Star, Target, Eye } from 'lucide-react'
+import { ExternalLink, Code, ChevronRight, Sparkles, Star, Target, Eye, ChevronLeft } from 'lucide-react'
 
 const Portfolio = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const [activeProject] = useState(0)
+  const [activeProject, setActiveProject] = useState(0)
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -37,7 +37,30 @@ const Portfolio = () => {
         rating: '4.8★'
       },
       color: 'primary',
-      gradient: 'from-primary-500 to-primary-600'
+      gradient: 'from-primary-500 to-primary-600',
+      image: '/images/malaking-homepage.png'
+    },
+    {
+      id: 2,
+      title: 'Aarti Fashion House',
+      subtitle: 'Premium Fashion Atelier & E-commerce',
+      description: 'An elegant fashion atelier website showcasing premium fabrics and ready-to-wear collections. Built with modern design principles featuring curated collections, client testimonials, and a sophisticated booking system for private consultations.',
+      category: 'Fashion & E-commerce',
+      status: 'Live',
+      url: 'https://aarti-fashion-house.vercel.app/',
+      github: '',
+      technologies: ['Next.js 15', 'React 19', 'Tailwind CSS', 'TypeScript', 'Framer Motion', 'Vercel'],
+      features: ['Curated Collections', 'Private Consultation Booking', 'Client Testimonials', 'Premium Gallery', 'Responsive Design', 'Modern Animations'],
+      metrics: {
+        performance: 95,
+        accessibility: 98,
+        seo: 96,
+        users: '2K+',
+        rating: '5.0★'
+      },
+      color: 'secondary',
+      gradient: 'from-secondary-500 to-secondary-600',
+      image: '/images/aarti-fashion.png'
     }
   ]
 
@@ -137,6 +160,52 @@ const Portfolio = () => {
         </motion.div>
 
 
+        {/* Project Navigation */}
+        {projects.length > 1 && (
+          <motion.div
+            className="flex justify-center items-center space-x-8 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <motion.button
+              onClick={() => setActiveProject(activeProject === 0 ? projects.length - 1 : activeProject - 1)}
+              className="group flex items-center space-x-2 bg-white border-2 border-gray-200 hover:border-primary-300 px-6 py-3 rounded-2xl transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-600 group-hover:text-primary-600" />
+              <span className="font-medium text-gray-700 group-hover:text-primary-600">Previous</span>
+            </motion.button>
+
+            <div className="flex space-x-3">
+              {projects.map((_, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => setActiveProject(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === activeProject 
+                      ? 'bg-primary-500 scale-125' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                />
+              ))}
+            </div>
+
+            <motion.button
+              onClick={() => setActiveProject(activeProject === projects.length - 1 ? 0 : activeProject + 1)}
+              className="group flex items-center space-x-2 bg-white border-2 border-gray-200 hover:border-primary-300 px-6 py-3 rounded-2xl transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="font-medium text-gray-700 group-hover:text-primary-600">Next</span>
+              <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-primary-600" />
+            </motion.button>
+          </motion.div>
+        )}
+
         {/* Main Project Display */}
         <motion.div
           key={currentProject.id}
@@ -190,8 +259,8 @@ const Portfolio = () => {
                     <div className="w-full h-full relative overflow-hidden">
                       {/* Actual Screenshot Image */}
                       <Image
-                        src="/images/malaking-homepage.png"
-                        alt="Malaking Hot Pot Website Homepage"
+                        src={currentProject.image}
+                        alt={`${currentProject.title} Website Homepage`}
                         fill
                         className="object-cover object-top"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -333,7 +402,7 @@ const Portfolio = () => {
                 <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </motion.a>
 
-              {currentProject.github && (
+              {currentProject.github && currentProject.github !== '' && (
                 <motion.a
                   href={currentProject.github}
                   target="_blank"
