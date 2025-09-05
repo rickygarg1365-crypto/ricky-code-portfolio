@@ -72,11 +72,11 @@ const Portfolio = () => {
       gradient: 'from-primary-500 to-primary-600',
       image: '/images/malaking-homepage.png',
       brandColors: {
-        primary: '#DC2626',     // Red-600
-        secondary: '#B91C1C',   // Red-700
-        accent: '#EF4444',      // Red-500
-        light: '#FEE2E2',       // Red-50
-        text: '#991B1B'         // Red-800
+        primary: '#B32E1E',     // Malaking Red
+        secondary: '#9A2619',   // Darker Malaking Red
+        accent: '#D63A28',      // Lighter Malaking Red
+        light: '#FDE8E6',       // Very Light Red
+        text: '#7A1F15'         // Dark Malaking Red Text
       }
     },
     {
@@ -101,11 +101,11 @@ const Portfolio = () => {
       gradient: 'from-secondary-500 to-secondary-600',
       image: '/images/aarti-fashion.png',
       brandColors: {
-        primary: '#D97706',     // Amber-600
-        secondary: '#B45309',   // Amber-700
-        accent: '#F59E0B',      // Amber-500
-        light: '#FEF3C7',       // Amber-50
-        text: '#92400E'         // Amber-800
+        primary: '#C9A96E',     // Aarti Fashion Golden
+        secondary: '#B8956A',   // Darker Golden
+        accent: '#D4B575',      // Lighter Golden
+        light: '#F5F2ED',       // Very Light Golden
+        text: '#8B7355'         // Dark Golden Text
       }
     }
   ]
@@ -224,25 +224,20 @@ const Portfolio = () => {
           >
                          <motion.button
                onClick={() => setActiveProject(activeProject === 0 ? projects.length - 1 : activeProject - 1)}
-               className="group flex items-center space-x-2 bg-white border-2 border-gray-200 px-6 py-3 rounded-2xl transition-all duration-300"
+               className="group flex items-center space-x-2 bg-white border-2 px-6 py-3 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300"
                style={{
-                 '--hover-border-color': currentProject.brandColors.primary,
-                 '--hover-text-color': currentProject.brandColors.primary
-               } as React.CSSProperties}
+                 borderColor: currentProject.brandColors.primary,
+                 color: currentProject.brandColors.primary
+               }}
                whileHover={{ 
                  scale: 1.05,
-                 borderColor: currentProject.brandColors.primary
+                 backgroundColor: currentProject.brandColors.primary,
+                 color: '#ffffff'
                }}
                whileTap={{ scale: 0.95 }}
              >
-               <ChevronLeft 
-                 className="w-5 h-5 text-gray-600 transition-colors duration-300" 
-                 style={{ color: 'inherit' }}
-               />
-               <span 
-                 className="font-medium text-gray-700 transition-colors duration-300"
-                 style={{ color: 'inherit' }}
-               >
+               <ChevronLeft className="w-5 h-5 transition-colors duration-300" />
+               <span className="font-semibold transition-colors duration-300">
                  Previous
                </span>
              </motion.button>
@@ -272,27 +267,22 @@ const Portfolio = () => {
 
              <motion.button
                onClick={() => setActiveProject(activeProject === projects.length - 1 ? 0 : activeProject + 1)}
-               className="group flex items-center space-x-2 bg-white border-2 border-gray-200 px-6 py-3 rounded-2xl transition-all duration-300"
+               className="group flex items-center space-x-2 bg-white border-2 px-6 py-3 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300"
                style={{
-                 '--hover-border-color': currentProject.brandColors.primary,
-                 '--hover-text-color': currentProject.brandColors.primary
-               } as React.CSSProperties}
+                 borderColor: currentProject.brandColors.primary,
+                 color: currentProject.brandColors.primary
+               }}
                whileHover={{ 
                  scale: 1.05,
-                 borderColor: currentProject.brandColors.primary
+                 backgroundColor: currentProject.brandColors.primary,
+                 color: '#ffffff'
                }}
                whileTap={{ scale: 0.95 }}
              >
-               <span 
-                 className="font-medium text-gray-700 transition-colors duration-300"
-                 style={{ color: 'inherit' }}
-               >
+               <span className="font-semibold transition-colors duration-300">
                  Next
                </span>
-               <ChevronRight 
-                 className="w-5 h-5 text-gray-600 transition-colors duration-300" 
-                 style={{ color: 'inherit' }}
-               />
+               <ChevronRight className="w-5 h-5 transition-colors duration-300" />
              </motion.button>
           </motion.div>
         )}
