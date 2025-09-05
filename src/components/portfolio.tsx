@@ -5,6 +5,38 @@ import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { ExternalLink, Code, ChevronRight, Sparkles, Star, Target, Eye, ChevronLeft } from 'lucide-react'
 
+interface BrandColors {
+  primary: string
+  secondary: string
+  accent: string
+  light: string
+  text: string
+}
+
+interface Project {
+  id: number
+  title: string
+  subtitle: string
+  description: string
+  category: string
+  status: string
+  url: string
+  github: string
+  technologies: string[]
+  features: string[]
+  metrics: {
+    performance: number
+    accessibility: number
+    seo: number
+    users: string
+    rating: string
+  }
+  color: string
+  gradient: string
+  image: string
+  brandColors: BrandColors
+}
+
 const Portfolio = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
@@ -17,7 +49,7 @@ const Portfolio = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '15%'])
 
-  const projects = [
+  const projects: Project[] = [
     {
       id: 1,
       title: 'Malaking Hot Pot',
@@ -38,7 +70,14 @@ const Portfolio = () => {
       },
       color: 'primary',
       gradient: 'from-primary-500 to-primary-600',
-      image: '/images/malaking-homepage.png'
+      image: '/images/malaking-homepage.png',
+      brandColors: {
+        primary: '#DC2626',     // Red-600
+        secondary: '#B91C1C',   // Red-700
+        accent: '#EF4444',      // Red-500
+        light: '#FEE2E2',       // Red-50
+        text: '#991B1B'         // Red-800
+      }
     },
     {
       id: 2,
@@ -60,7 +99,14 @@ const Portfolio = () => {
       },
       color: 'secondary',
       gradient: 'from-secondary-500 to-secondary-600',
-      image: '/images/aarti-fashion.png'
+      image: '/images/aarti-fashion.png',
+      brandColors: {
+        primary: '#D97706',     // Amber-600
+        secondary: '#B45309',   // Amber-700
+        accent: '#F59E0B',      // Amber-500
+        light: '#FEF3C7',       // Amber-50
+        text: '#92400E'         // Amber-800
+      }
     }
   ]
 
@@ -129,15 +175,18 @@ const Portfolio = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.div
-            className="inline-flex items-center space-x-2 bg-gray-900 text-white rounded-full px-6 py-3 mb-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <Sparkles className="w-4 h-4 text-primary-400" />
-            <span className="text-sm font-medium">Featured Projects</span>
-          </motion.div>
+                     <motion.div
+             className="inline-flex items-center space-x-2 bg-gray-900 text-white rounded-full px-6 py-3 mb-8"
+             initial={{ opacity: 0, scale: 0.8 }}
+             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+             transition={{ duration: 0.6, delay: 0.2 }}
+           >
+             <Sparkles 
+               className="w-4 h-4 transition-colors duration-500"
+               style={{ color: currentProject.brandColors.primary }}
+             />
+             <span className="text-sm font-medium">Featured Projects</span>
+           </motion.div>
 
           <motion.h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-8"
@@ -145,8 +194,13 @@ const Portfolio = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Showcasing Our{' '}
-            <span className="text-primary-600">Latest Work</span>
+                         Showcasing Our{' '}
+             <span 
+               className="transition-colors duration-500"
+               style={{ color: currentProject.brandColors.primary }}
+             >
+               Latest Work
+             </span>
           </motion.h2>
 
           <motion.p
@@ -168,41 +222,78 @@ const Portfolio = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <motion.button
-              onClick={() => setActiveProject(activeProject === 0 ? projects.length - 1 : activeProject - 1)}
-              className="group flex items-center space-x-2 bg-white border-2 border-gray-200 hover:border-primary-300 px-6 py-3 rounded-2xl transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-600 group-hover:text-primary-600" />
-              <span className="font-medium text-gray-700 group-hover:text-primary-600">Previous</span>
-            </motion.button>
+                         <motion.button
+               onClick={() => setActiveProject(activeProject === 0 ? projects.length - 1 : activeProject - 1)}
+               className="group flex items-center space-x-2 bg-white border-2 border-gray-200 px-6 py-3 rounded-2xl transition-all duration-300"
+               style={{
+                 '--hover-border-color': currentProject.brandColors.primary,
+                 '--hover-text-color': currentProject.brandColors.primary
+               } as React.CSSProperties}
+               whileHover={{ 
+                 scale: 1.05,
+                 borderColor: currentProject.brandColors.primary
+               }}
+               whileTap={{ scale: 0.95 }}
+             >
+               <ChevronLeft 
+                 className="w-5 h-5 text-gray-600 transition-colors duration-300" 
+                 style={{ color: 'inherit' }}
+               />
+               <span 
+                 className="font-medium text-gray-700 transition-colors duration-300"
+                 style={{ color: 'inherit' }}
+               >
+                 Previous
+               </span>
+             </motion.button>
 
-            <div className="flex space-x-3">
-              {projects.map((_, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => setActiveProject(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === activeProject 
-                      ? 'bg-primary-500 scale-125' 
-                      : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                />
-              ))}
-            </div>
+             <div className="flex space-x-3">
+               {projects.map((_, index) => (
+                 <motion.button
+                   key={index}
+                   onClick={() => setActiveProject(index)}
+                   className="w-3 h-3 rounded-full transition-all duration-300"
+                   style={{
+                     backgroundColor: index === activeProject 
+                       ? currentProject.brandColors.primary 
+                       : '#d1d5db',
+                     transform: index === activeProject ? 'scale(1.25)' : 'scale(1)'
+                   }}
+                   whileHover={{ 
+                     scale: 1.2,
+                     backgroundColor: index === activeProject 
+                       ? currentProject.brandColors.primary 
+                       : '#9ca3af'
+                   }}
+                   whileTap={{ scale: 0.9 }}
+                 />
+               ))}
+             </div>
 
-            <motion.button
-              onClick={() => setActiveProject(activeProject === projects.length - 1 ? 0 : activeProject + 1)}
-              className="group flex items-center space-x-2 bg-white border-2 border-gray-200 hover:border-primary-300 px-6 py-3 rounded-2xl transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="font-medium text-gray-700 group-hover:text-primary-600">Next</span>
-              <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-primary-600" />
-            </motion.button>
+             <motion.button
+               onClick={() => setActiveProject(activeProject === projects.length - 1 ? 0 : activeProject + 1)}
+               className="group flex items-center space-x-2 bg-white border-2 border-gray-200 px-6 py-3 rounded-2xl transition-all duration-300"
+               style={{
+                 '--hover-border-color': currentProject.brandColors.primary,
+                 '--hover-text-color': currentProject.brandColors.primary
+               } as React.CSSProperties}
+               whileHover={{ 
+                 scale: 1.05,
+                 borderColor: currentProject.brandColors.primary
+               }}
+               whileTap={{ scale: 0.95 }}
+             >
+               <span 
+                 className="font-medium text-gray-700 transition-colors duration-300"
+                 style={{ color: 'inherit' }}
+               >
+                 Next
+               </span>
+               <ChevronRight 
+                 className="w-5 h-5 text-gray-600 transition-colors duration-300" 
+                 style={{ color: 'inherit' }}
+               />
+             </motion.button>
           </motion.div>
         )}
 
@@ -283,43 +374,55 @@ const Portfolio = () => {
                     <p className="text-sm text-gray-600">{currentProject.category}</p>
                   </div>
                   
-                  <div className="flex flex-wrap gap-2">
-                    {currentProject.technologies.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className={`px-3 py-1 bg-gradient-to-r ${currentProject.gradient} text-white rounded-full text-xs font-medium`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {currentProject.technologies.length > 3 && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
-                        +{currentProject.technologies.length - 3} more
-                      </span>
-                    )}
-                  </div>
+                                     <div className="flex flex-wrap gap-2">
+                     {currentProject.technologies.slice(0, 3).map((tech) => (
+                       <span
+                         key={tech}
+                         className="px-3 py-1 text-white rounded-full text-xs font-medium transition-colors duration-500"
+                         style={{
+                           background: `linear-gradient(135deg, ${currentProject.brandColors.primary}, ${currentProject.brandColors.secondary})`
+                         }}
+                       >
+                         {tech}
+                       </span>
+                     ))}
+                     {currentProject.technologies.length > 3 && (
+                       <span 
+                         className="px-3 py-1 rounded-full text-xs font-medium transition-colors duration-500"
+                         style={{
+                           backgroundColor: currentProject.brandColors.light,
+                           color: currentProject.brandColors.text
+                         }}
+                       >
+                         +{currentProject.technologies.length - 3} more
+                       </span>
+                     )}
+                   </div>
                   </div>
                 </div>
 
-              {/* Floating Action Button */}
-              <motion.a
-                href={currentProject.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br ${currentProject.gradient} rounded-2xl flex items-center justify-center shadow-lg cursor-pointer`}
-                animate={{ 
-                  rotate: [0, 360],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{ 
-                  duration: 8, 
-                  ease: "easeInOut", 
-                  repeat: Infinity 
-                }}
-                whileHover={{ scale: 1.2 }}
-                >
-                  <ExternalLink className="w-8 h-8 text-white" />
-              </motion.a>
+                             {/* Floating Action Button */}
+               <motion.a
+                 href={currentProject.url}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="absolute -top-4 -right-4 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg cursor-pointer transition-colors duration-500"
+                 style={{
+                   background: `linear-gradient(135deg, ${currentProject.brandColors.primary}, ${currentProject.brandColors.secondary})`
+                 }}
+                 animate={{ 
+                   rotate: [0, 360],
+                   scale: [1, 1.1, 1]
+                 }}
+                 transition={{ 
+                   duration: 8, 
+                   ease: "easeInOut", 
+                   repeat: Infinity 
+                 }}
+                 whileHover={{ scale: 1.2 }}
+                 >
+                   <ExternalLink className="w-8 h-8 text-white" />
+               </motion.a>
               </div>
             </motion.div>
 
@@ -331,13 +434,21 @@ const Portfolio = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div>
-              <div className="inline-flex items-center space-x-2 bg-white rounded-full px-4 py-2 mb-4 shadow-sm border border-gray-100">
-                <Star className={`w-4 h-4 text-${currentProject.color}-500`} />
-                <span className="text-sm font-medium text-gray-700">{currentProject.category}</span>
-              </div>
+                             <div className="inline-flex items-center space-x-2 bg-white rounded-full px-4 py-2 mb-4 shadow-sm border border-gray-100">
+                 <Star 
+                   className="w-4 h-4 transition-colors duration-500" 
+                   style={{ color: currentProject.brandColors.primary }}
+                 />
+                 <span className="text-sm font-medium text-gray-700">{currentProject.category}</span>
+               </div>
 
               <h3 className="text-3xl font-bold text-gray-900 mb-3">{currentProject.title}</h3>
-              <h4 className={`text-xl font-semibold text-${currentProject.color}-600 mb-6`}>{currentProject.subtitle}</h4>
+                             <h4 
+                 className="text-xl font-semibold mb-6 transition-colors duration-500"
+                 style={{ color: currentProject.brandColors.primary }}
+               >
+                 {currentProject.subtitle}
+               </h4>
               <p className="text-gray-600 leading-relaxed text-lg">{currentProject.description}</p>
                     </div>
 
@@ -346,16 +457,19 @@ const Portfolio = () => {
               <h5 className="font-semibold text-gray-900 mb-4">Key Features</h5>
               <div className="grid grid-cols-2 gap-3">
                 {currentProject.features.map((feature, index) => (
-                  <motion.div
-                    key={feature}
-                    className="flex items-center space-x-3 p-3 bg-white rounded-xl border border-gray-100"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  >
-                    <div className={`w-2 h-2 bg-${currentProject.color}-500 rounded-full`}></div>
-                    <span className="text-sm text-gray-700">{feature}</span>
-                  </motion.div>
+                                     <motion.div
+                     key={feature}
+                     className="flex items-center space-x-3 p-3 bg-white rounded-xl border border-gray-100"
+                     initial={{ opacity: 0, x: -20 }}
+                     animate={{ opacity: 1, x: 0 }}
+                     transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                   >
+                     <div 
+                       className="w-2 h-2 rounded-full transition-colors duration-500"
+                       style={{ backgroundColor: currentProject.brandColors.primary }}
+                     ></div>
+                     <span className="text-sm text-gray-700">{feature}</span>
+                   </motion.div>
                       ))}
                     </div>
             </div>
@@ -372,35 +486,44 @@ const Portfolio = () => {
                   <div className="text-2xl font-bold text-blue-600">{currentProject.metrics.accessibility}%</div>
                         <div className="text-xs text-gray-600">Accessibility</div>
                       </div>
-                <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
-                  <div className={`text-2xl font-bold text-${currentProject.color}-600`}>
-                    {currentProject.metrics.users}
-                  </div>
-                  <div className="text-xs text-gray-600">Users</div>
-                      </div>
-                <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
-                  <div className={`text-2xl font-bold text-${currentProject.color}-600`}>
-                    {currentProject.metrics.rating}
-                      </div>
-                  <div className="text-xs text-gray-600">Rating</div>
-                    </div>
+                                 <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
+                   <div 
+                     className="text-2xl font-bold transition-colors duration-500"
+                     style={{ color: currentProject.brandColors.primary }}
+                   >
+                     {currentProject.metrics.users}
+                   </div>
+                   <div className="text-xs text-gray-600">Users</div>
+                       </div>
+                 <div className="text-center p-4 bg-white rounded-xl border border-gray-100">
+                   <div 
+                     className="text-2xl font-bold transition-colors duration-500"
+                     style={{ color: currentProject.brandColors.primary }}
+                   >
+                     {currentProject.metrics.rating}
+                       </div>
+                   <div className="text-xs text-gray-600">Rating</div>
+                     </div>
               </div>
             </div>
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <motion.a
-                href={currentProject.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group flex items-center justify-center bg-gradient-to-r ${currentProject.gradient} text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300`}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Eye className="mr-2 w-5 h-5" />
-                View Project
-                <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </motion.a>
+                             <motion.a
+                 href={currentProject.url}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="group flex items-center justify-center text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                 style={{
+                   background: `linear-gradient(135deg, ${currentProject.brandColors.primary}, ${currentProject.brandColors.secondary})`
+                 }}
+                 whileHover={{ scale: 1.02, y: -2 }}
+                 whileTap={{ scale: 0.98 }}
+               >
+                 <Eye className="mr-2 w-5 h-5" />
+                 View Project
+                 <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+               </motion.a>
 
               {currentProject.github && currentProject.github !== '' && (
                 <motion.a
@@ -427,15 +550,18 @@ const Portfolio = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <motion.div
-            className="inline-flex items-center space-x-2 bg-gray-900 text-white rounded-full px-4 py-2 mb-6"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.6, delay: 1 }}
-          >
-            <Target className="w-4 h-4 text-primary-400" />
-            <span className="text-sm font-medium">Ready to Start?</span>
-          </motion.div>
+                     <motion.div
+             className="inline-flex items-center space-x-2 bg-gray-900 text-white rounded-full px-4 py-2 mb-6"
+             initial={{ opacity: 0, scale: 0.8 }}
+             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+             transition={{ duration: 0.6, delay: 1 }}
+           >
+             <Target 
+               className="w-4 h-4 transition-colors duration-500" 
+               style={{ color: currentProject.brandColors.primary }}
+             />
+             <span className="text-sm font-medium">Ready to Start?</span>
+           </motion.div>
 
           <h3 className="text-3xl font-bold text-gray-900 mb-4">
             Let&apos;s Create Something Amazing Together
